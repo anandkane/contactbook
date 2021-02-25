@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: contactbook
+  name: contactbook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contactbook
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: contactbook
+    spec:
+      containers:
+      - image: anandkane/contactbook:1.0.0
+        name: contactbook
+        imagePullPolicy: Always
+        resources: {}
+status: {}
