@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@RestController
+@RestController("contact-controller")
 @RequestMapping("/api/contact")
 public class ContactResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(ContactResource.class);
