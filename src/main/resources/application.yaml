@@ -1,0 +1,48 @@
+server:
+  port: 9090
+spring:
+  updatable:
+    datasource:
+      driver-class-name: software.amazon.jdbc.Driver
+      generate-unique-name: false
+      jdbc-url: "jdbc:aws-wrapper:postgresql://dev-aurora-postgres-mes.cluster-c8m1dsmoufmo.us-east-1.rds.amazonaws.com:5432/mes_bucs?options=-c%20search_path=mes,rfs,aws_oracle_ext"
+      hikari:
+        driverClassName: software.amazon.jdbc.Driver
+        poolName: my-pool
+        jdbcUrl: "jdbc:aws-wrapper:postgresql://dev-aurora-postgres-mes.cluster-c8m1dsmoufmo.us-east-1.rds.amazonaws.com:5432/mes_bucs?options=-c%20search_path=mes,rfs,aws_oracle_ext"
+        leakDetectionThreshold: 30000
+        username: rfs_listener_dev
+        password: HeLpDrT#TroY7BhATY
+      name: "datasource-updatable"
+  read-only:
+    datasource:
+      driver-class-name: software.amazon.jdbc.Driver
+      generate-unique-name: false
+      jdbc-url: "jdbc:aws-wrapper:postgresql://dev-aurora-postgres-mes.cluster-c8m1dsmoufmo.us-east-1.rds.amazonaws.com:5432/mes_bucs?options=-c%20search_path=mes,rfs,aws_oracle_ext"
+#      hikari:
+##        leak-detection-threshold: 30000
+#        read-only: true
+      name: "datasource-readonly"
+  application:
+    name: data-service
+  datasource:
+    driverClassName: org.h2.Driver
+    password: password
+    url: jdbc:h2:mem:testdb
+    username: sa
+    hikari:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      enabled: true
+#server.port: 443
+#server.ssl.key-store: keystore.p12
+#server.ssl.key-store-password: password
+#server.ssl.keyStoreType: PKCS12
+#server.ssl.keyAlias: tomcat
+#security.basic.enabled=false
+#server.tomcat.remote_ip_header=x-forwarded-for
+#server.tomcat.protocol_header=x-forwarded-proto

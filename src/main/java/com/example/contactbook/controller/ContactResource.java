@@ -10,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController("contact-controller")
-@RequestMapping("/api/contact")
+@RequestMapping("/api/contacts")
 public class ContactResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(ContactResource.class);
 
@@ -31,6 +30,22 @@ public class ContactResource {
     public ContactResource(MyBean bean) {
         this.bean = bean;
         bean.printMessage();
+
+        Contact contact = new Contact();
+        contact.setId(-1);
+        contact.setFirstName("Yeda");
+        contact.setLastName("Anna");
+        String company = "awara-pagal-diwana.com";
+        contact.setCompany(company);
+        contactMap.put(contact.getId(), contact);
+
+        contact = new Contact();
+        contact.setId(-2);
+        contact.setFirstName("Chota");
+        contact.setLastName("Chattri");
+        contact.setCompany(company);
+
+        contactMap.put(contact.getId(), contact);
     }
 
     @GetMapping
@@ -60,6 +75,20 @@ public class ContactResource {
         contactMap.put(id, contact);
 
         return contact;
+    }
+
+    @GetMapping("/names-by-ids")
+    @ResponseBody
+    public List<HashMap<Integer, String>> namesForIds(@RequestParam Integer[] ids) {
+        ArrayList<HashMap<Integer, String>> values = new ArrayList<>();
+        for (Integer id : ids) {
+            System.out.println(id);
+            HashMap<Integer, String> map = new HashMap<>();
+            map.put(id, "Name" + id);
+
+            values.add(map);
+        }
+        return values;
     }
 
     @PostMapping("/nifi-mock")
